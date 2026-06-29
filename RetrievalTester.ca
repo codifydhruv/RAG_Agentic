@@ -1,0 +1,32 @@
+using Azure.Search.Documents;
+using Azure.Search.Documents.Models;
+
+public static class RetrievalTester
+{
+    public static async Task TestQueryAsync(
+        SearchClient searchClient,
+        EmbeddingClient embeddingClient,
+        string question)
+    {
+        var embeddingResult = await embeddingClient.GenerateEmbeddingAsync(question);
+        float[] queryVector = embeddingResult.Value.ToFloats().ToArray();
+
+        var searchOptions = new SearchOptions
+        {
+            VectorSearch = new()
+            {
+                Queries = { new VectorizedQuery(queryVector) { KNearestNeighborsCount = 3, Fields = { "contentVector" } } }
+            },
+            Size = 3
+        };
+
+        var response = await searchClient.SearchAsync<IndexedChunk>(null, searchOptions);
+
+        Console.WriteLine($"\nQuery: \"{question}\"");
+        await foreach (var result in response.Value.GetResultsAsync())
+        {
+            Console.WriteLine($"  Score: {result.Score:F4} | Source: {result.Document.SourceFile} | Dept: {result.Document.Department}");
+            Console.WriteLine($"  Content: {result.Document.Content.Substring(0, Math.Min(150, result.Document.Content.Length))}...\n");
+        }
+    }
+}
