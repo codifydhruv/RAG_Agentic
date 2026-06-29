@@ -7,5 +7,10 @@
     "Endpoint": "https://YOUR-RESOURCE.openai.azure.com/",
     "ApiKey": "...",
     "EmbeddingDeployment": "text-embedding-3-large"
+  },
+  "AzureAd": {
+    "Instance": "https://login.microsoftonline.com/",
+    "TenantId": "YOUR_TENANT_ID",
+    "ClientId": "YOUR_CLIENT_ID"
   }
 }
