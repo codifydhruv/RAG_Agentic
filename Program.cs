@@ -27,7 +27,7 @@ catch (RequestFailedException ex) when (ex.Status == 404)
 {
     await IndexSetup.CreateIndexAsync(indexClient);
 }
-
+/*
 // 2c - extract
 var extractedDocs = await TextExtractor.ExtractAllAsync(storageConnectionString);
 Console.WriteLine($"Extracted {extractedDocs.Count} documents\n");
@@ -46,3 +46,10 @@ Console.WriteLine($"\nEmbedded {indexedChunks.Count} chunks\n");
 
 // 2f - index
 await IndexUploader.UploadChunksAsync(searchClient, indexedChunks);
+*/
+
+var azureClient = new AzureOpenAIClient(new Uri(foundryEndpoint), new AzureKeyCredential(foundryApiKey));
+EmbeddingClient embeddingClient = azureClient.GetEmbeddingClient(embeddingDeployment);
+await RetrievalTester.TestQueryAsync(searchClient, embeddingClient, "What is the remote work policy?");
+await RetrievalTester.TestQueryAsync(searchClient, embeddingClient, "How do I submit an expense reimbursement?");
+await RetrievalTester.TestQueryAsync(searchClient, embeddingClient, "What should I do during a security incident?");
