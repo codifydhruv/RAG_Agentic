@@ -2,16 +2,28 @@ using Azure;
 using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
 
+using System.Text.Json.Serialization;
+
 public class IndexedChunk
 {
+    [JsonPropertyName("id")]
     public string Id { get; set; } = "";
+
+    [JsonPropertyName("content")]
     public string Content { get; set; } = "";
+
+    [JsonPropertyName("contentVector")]
     public float[] ContentVector { get; set; } = Array.Empty<float>();
+
+    [JsonPropertyName("sourceFile")]
     public string SourceFile { get; set; } = "";
+
+    [JsonPropertyName("department")]
     public string Department { get; set; } = "";
+
+    [JsonPropertyName("chunkIndex")]
     public int ChunkIndex { get; set; }
 }
-
 public static class IndexUploader
 {
     public static async Task UploadChunksAsync(SearchClient searchClient, List<IndexedChunk> chunks)
