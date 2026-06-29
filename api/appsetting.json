@@ -1,0 +1,11 @@
+{
+  "Search": {
+    "Endpoint": "https://srch-entrag-dev.search.windows.net",
+    "AdminKey": "..."
+  },
+  "Foundry": {
+    "Endpoint": "https://YOUR-RESOURCE.openai.azure.com/",
+    "ApiKey": "...",
+    "EmbeddingDeployment": "text-embedding-3-large"
+  }
+}
