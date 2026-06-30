@@ -39,3 +39,5 @@ builder.Services.AddSingleton(sp =>
     });
     return registry;
 });
+builder.Services.AddSingleton<ITicketingTool, MockTicketingTool>();
+
