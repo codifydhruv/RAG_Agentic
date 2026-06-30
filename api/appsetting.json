@@ -6,7 +6,8 @@
   "Foundry": {
     "Endpoint": "https://YOUR-RESOURCE.openai.azure.com/",
     "ApiKey": "...",
-    "EmbeddingDeployment": "text-embedding-3-large"
+    "EmbeddingDeployment": "text-embedding-3-large",
+    "ChatDeployment": "gpt-4o"
   },
   "AzureAd": {
     "Instance": "https://login.microsoftonline.com/",
