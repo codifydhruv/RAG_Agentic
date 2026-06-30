@@ -21,6 +21,12 @@ public class AssistantController : ControllerBase
         var result = await _answerService.AnswerAsync(request.Question);
         return Ok(result);
     }
+    [HttpPost("route")]
+public async Task<IActionResult> Route([FromBody] AskRequest request)
+{
+    var result = await _orchestrator.HandleAsync(request.Question);
+    return Ok(result);
+}
 }
 
 public class AskRequest
