@@ -1,0 +1,23 @@
+The test plan
+-------------
+
+
+Call POST /api/assistant/ask 
+(with a valid token, same Postman setup as 3a) with these four questions — reusing the same ones from Step 2g deliberately, so you have a direct before/after comparison between "raw retrieval" and "full grounded answer":
+
+1. "What activities must be completed before a new employee's first day?" (HR)
+2. "What evidence is required for an employee expense reimbursement?" (Finance)
+3. "What controls apply to privileged access and service accounts?" (IT)
+4. "What is the decimal representation of pi?" (out-of-corpus — should refuse)
+
+What "passing" looks like
+-----------------------
+Questions 1–3: 
+200 OK, 
+WasRefusal: false, 
+Answer contains specific policy details with inline citations like (Source: HR_Employee_Onboarding_Policy.md), Sources array matches the expected file
+
+Question 4: 
+200 OK, 
+WasRefusal: true, 
+Answer is the exact fixed refusal string, Sources is empty
