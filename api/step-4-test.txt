@@ -1,0 +1,11 @@
+Test via Postman — three cases that actually prove something
+
+Valid request → POST /api/test/create-ticket
+
+json{ "title": "Laptop won't boot", "description": "Black screen on power-on", "priority": "High", "department": "IT" }
+Expected: 200 OK, a TicketId like TCK-1000, and console output showing [MOCK TICKET CREATED]
+
+Missing title → same request with "title": ""
+Expected: 400 Bad Request, error message about title being required — proves validation actually runs, not just happy-path
+Invalid priority → "priority": "Urgent" (not in the allowed enum)
+Expected: 400 Bad Request, error listing valid priorities
