@@ -12,3 +12,14 @@ builder.Services.AddSingleton(sp =>
 });
 
 builder.Services.AddSingleton<IRetrievalService, RetrievalService>();
+
+//step 3
+builder.Services.AddSingleton(sp =>
+{
+    var azureClient = new AzureOpenAIClient(
+        new Uri(builder.Configuration["Foundry:Endpoint"]!),
+        new AzureKeyCredential(builder.Configuration["Foundry:ApiKey"]!));
+    return azureClient.GetChatClient(builder.Configuration["Foundry:ChatDeployment"]!);
+});
+
+builder.Services.AddSingleton<IAnswerService, AnswerService>();
