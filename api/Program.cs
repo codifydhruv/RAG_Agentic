@@ -23,3 +23,19 @@ builder.Services.AddSingleton(sp =>
 });
 
 builder.Services.AddSingleton<IAnswerService, AnswerService>();
+
+
+//step 4
+builder.Services.AddSingleton<ITicketingTool, MockTicketingTool>();
+builder.Services.AddSingleton(sp =>
+{
+    var registry = new ToolRegistry();
+    registry.Register(new ToolDefinition
+    {
+        Name = "create_ticket",
+        Description = "Creates a support ticket for IT, HR, or Finance issues that require human follow-up. Use this when the user reports a problem needing action, not just information.",
+        RequestType = typeof(CreateTicketRequest),
+        RequiresApproval = true
+    });
+    return registry;
+});
